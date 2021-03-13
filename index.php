@@ -1,21 +1,21 @@
 <?php
+//Require the autoload file
+require_once('vendor/autoload.php');
 
 //Turn on error reporting -- this is critical!
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-//Require the autoload file
-require_once('vendor/autoload.php');
+//Start a session
+session_start();
+
+
 
 //Class Instances
 $f3 = Base::instance();
 $validator = new Validate();
-$dataLayer = new DataLayer();
+$dataLayer = new DataLayer($dbh);
 $controller = new Controller($f3);
-
-
-//Start a session
-session_start();
 
 //Error Reporting
 $f3->set('DEBUG', 3);

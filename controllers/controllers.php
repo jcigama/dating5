@@ -208,8 +208,14 @@ class Controller
     /** Display summary page */
     function summary()
     {
+        global $dataLayer;
+
+        require $_SERVER['DOCUMENT_ROOT'].'/../config.php';
+
         //unserialize session and reassign to an instance variable
         $member = unserialize($_SESSION['$member']);
+
+        $dataLayer->insertMember($member);
 
         $this->_f3->set('fName', $member->getFName());
         $this->_f3->set('lName', $member->getLName());

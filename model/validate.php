@@ -6,18 +6,6 @@
  */
 class Validate
 {
-    /**
-     * @var DataLayer
-     */
-    private $_dataLayer;
-
-    /**
-     * Validate constructor.
-     */
-    public function __construct()
-    {
-        $this->_dataLayer = new DataLayer();
-    }
 
     /** validfName() returns true if first name contains only alphabetic characters
      * @param $fName
@@ -75,7 +63,9 @@ class Validate
      */
     function validOutdoor($outdoorActivities): bool
     {
-        $validOutdoor = $this->_dataLayer->getOutdoor();
+        global $dataLayer;
+
+        $validOutdoor = $dataLayer->getOutdoor();
 
         foreach ($outdoorActivities as $activity) {
             if (!in_array($activity, $validOutdoor)) {
@@ -92,7 +82,9 @@ class Validate
      */
     function validIndoor($indoorActivities): bool
     {
-        $validIndoor = $this->_dataLayer->getIndoor();
+        global $dataLayer;
+
+        $validIndoor = $dataLayer->getIndoor();
 
         foreach ($indoorActivities as $activity) {
             if (!in_array($activity, $validIndoor)) {
