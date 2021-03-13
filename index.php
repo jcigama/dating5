@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 //Start a session
 session_start();
 
-
+require $_SERVER['DOCUMENT_ROOT'].'/../config.php';
 
 //Class Instances
 $f3 = Base::instance();

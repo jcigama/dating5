@@ -11,14 +11,36 @@ class DataLayer
 
     function insertMember($member)
     {
-        $sql = "INSERT INTO member(fName, lName, age, gender, phone, email, state, seeking, bio, interests)
-                   VALUES (:fName, :lName, :age, :gender, :phone, :email, :state, :seeking, :bio, :interests)";
+        $sql = "INSERT INTO member(fName, lName, age, gender, phone, email, state, seeking, bio, interests, isMember)
+                   VALUES (:fName, :lName, :age, :gender, :phone, :email, :state, :seeking, :bio, :interests, :isMember)";
 
         //prepare the statement
         $statement = $this->_dbh->prepare($sql);
 
-        if($member->isMember())
+        if($member->isMember() == true)
         {
+            $isMember = 1;
+            $interests = "";
+
+            if ($member->getInDoorInterests() != null)
+            {
+                $interests .= $member->getInDoorInterests();
+            }
+
+            if ($member->getInDoorInterests() != null && $member->getOutDoorInterests() != null)
+            {
+                $interests .= ", " . $member->getOutDoorInterests();
+            }
+            else
+            {
+                $interests .= $member->getOutDoorInterests();
+            }
+
+            if ($interests == "")
+            {
+                $interests = "None";
+            }
+
             //Bind the parameters
             $statement->bindParam(":fName", $member->getFName(), PDO::PARAM_STR);
             $statement->bindParam(":lName", $member->getLName(), PDO::PARAM_STR);
@@ -29,22 +51,26 @@ class DataLayer
             $statement->bindParam(":state", $member->getState(), PDO::PARAM_STR);
             $statement->bindParam(":seeking", $member->getSeeking(), PDO::PARAM_STR);
             $statement->bindParam(":bio", $member->getBio(), PDO::PARAM_STR);
-
-
-            $statement->bindParam(":interests", $member->getInDoorInterests(), PDO::PARAM_STR);
+            $statement->bindParam(":interests", $interests, PDO::PARAM_STR);
+            $statement->bindParam(":isMember", $isMember, PDO::PARAM_BOOL);
         }
         else
         {
+            $isMember = 0;
+            $interests = "N/A";
+
             //Bind the parameters
             $statement->bindParam(":fName", $member->getFName(), PDO::PARAM_STR);
-            $statement->bindParam(":lName", $member->getUserName(), PDO::PARAM_STR);
-            $statement->bindParam(":age", $member->getUserName(), PDO::PARAM_STR);
-            $statement->bindParam(":gender", $member->getUserName(), PDO::PARAM_STR);
-            $statement->bindParam(":phone", $member->getUserName(), PDO::PARAM_STR);
-            $statement->bindParam(":email", $member->getUserName(), PDO::PARAM_STR);
-            $statement->bindParam(":state", $member->getUserName(), PDO::PARAM_STR);
-            $statement->bindParam(":seeking", $member->getUserName(), PDO::PARAM_STR);
-            $statement->bindParam(":bio", $member->getUserName(), PDO::PARAM_STR);
+            $statement->bindParam(":lName", $member->getLName(), PDO::PARAM_STR);
+            $statement->bindParam(":age", $member->getAge(), PDO::PARAM_INT);
+            $statement->bindParam(":gender", $member->getGender(), PDO::PARAM_STR);
+            $statement->bindParam(":phone", $member->getPhone(), PDO::PARAM_STR);
+            $statement->bindParam(":email", $member->getEmail(), PDO::PARAM_STR);
+            $statement->bindParam(":state", $member->getState(), PDO::PARAM_STR);
+            $statement->bindParam(":seeking", $member->getSeeking(), PDO::PARAM_STR);
+            $statement->bindParam(":bio", $member->getBio(), PDO::PARAM_STR);
+            $statement->bindParam(":interests", $interests, PDO::PARAM_STR);
+            $statement->bindParam(":isMember", $isMember, PDO::PARAM_BOOL);
         }
 
         //execute

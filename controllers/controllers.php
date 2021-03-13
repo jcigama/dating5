@@ -208,9 +208,9 @@ class Controller
     /** Display summary page */
     function summary()
     {
-        global $dataLayer;
 
-        require $_SERVER['DOCUMENT_ROOT'].'/../config.php';
+
+        global $dataLayer;
 
         //unserialize session and reassign to an instance variable
         $member = unserialize($_SESSION['$member']);
