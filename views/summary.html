@@ -1,0 +1,67 @@
+<!--
+    Name: Joseph Igama
+    Date: 03/04/2021
+    Purpose: A registration system that will setup a dating classes with details provided by the user
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Summary | G&G</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!--Form-->
+    <nav class="navbar navbar-light bg-light ">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1 "><a href="../dating4">G&G</a></span>
+        </div>
+    </nav>
+    <div class="container">
+        <br>
+
+        <!--Summary-->
+        <div class="row">
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Name: {{ @fName }}</li>
+                        <li class="list-group-item">Gender: {{ @lName }}</li>
+                        <li class="list-group-item">Age: {{ @age }}</li>
+                        <li class="list-group-item">Phone: {{ @phone }}</li>
+                        <li class="list-group-item">Email: {{ @email }}</li>
+                        <li class="list-group-item">State: {{ @state }}</li>
+                        <li class="list-group-item">Seeking: {{ @seeking }}</li>
+                        <check if="{{ isset(@inDoorInterests) || isset(@outDoorInterests)}}">
+                            <li class="list-group-item">
+                                <p>Interests: </p>
+                                <repeat group="{{ @inDoorInterests }}" value="{{ @inDoorInterest }}">
+                                    <p>{{ @inDoorInterest }}</p>
+                                </repeat>
+
+                                <repeat group="{{ @outDoorInterests }}" value="{{ @outDoorInterest }}">
+                                    <p>{{ @outDoorInterest }}</p>
+                                </repeat>
+                            </li>
+                        </check>
+                    </ul>
+                </div>
+            </div>
+
+            <!--Biography-->
+            <div class="col text-center">
+                <p>Lorem ipsum image</p>
+                <img src="images/Aphrodite.png">
+                <h3>Biography</h3>
+                <p>{{ @bio }}</p>
+            </div>
+        </div>
+        <br>
+        <!--Contact Button-->
+        <div class="text-center">
+           <button class="btn btn-info">Contact Me!</button>
+        </div>
+    </div>
+</body>
+</html>
