@@ -234,6 +234,7 @@ class Controller
         echo $view->render('views/summary.html');
     }
 
+    /** Display admin page */
     function admin()
     {
         global $dataLayer;

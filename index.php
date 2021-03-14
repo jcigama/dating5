@@ -50,7 +50,7 @@ $f3->route('GET|POST /summary', function() {
     $controller->summary();
 });
 
-//Summary Page
+//Admin Page
 $f3->route('GET|POST /admin', function() {
     global $controller;
     $controller->admin();
