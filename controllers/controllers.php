@@ -224,7 +224,7 @@ class Controller
             $this->_f3->set('seeking', $member->getSeeking());
             $this->_f3->set('bio', $member->getBio());
 
-            if ($member->isMember()){
+            if ($member->isMember()) {
                 $this->_f3->set('inDoorInterests', array($member->getInDoorInterests()));
                 $this->_f3->set('outDoorInterests', array($member->getOutDoorInterests()));
             }
@@ -265,7 +265,7 @@ class Controller
         $this->_f3->set('seeking', $member['seeking']);
         $this->_f3->set('bio', $member['bio']);
 
-        if ($member['isMember'] == 1){
+        if ($member['isMember'] == 1) {
             $this->_f3->set('interests', $member['interests']);
         }
 

@@ -31,27 +31,22 @@ class DataLayer
         //prepare the statement
         $statement = $this->_dbh->prepare($sql);
 
-        if($member->isMember() == true)
-        {
+        if($member->isMember() == true) {
             $isMember = 1;
             $interests = "";
 
-            if ($member->getInDoorInterests() != null)
-            {
+            if ($member->getInDoorInterests() != null) {
                 $interests .= $member->getInDoorInterests();
             }
 
-            if ($member->getInDoorInterests() != null && $member->getOutDoorInterests() != null)
-            {
+            if ($member->getInDoorInterests() != null && $member->getOutDoorInterests() != null) {
                 $interests .= ", " . $member->getOutDoorInterests();
             }
-            else
-            {
+            else {
                 $interests .= $member->getOutDoorInterests();
             }
 
-            if ($interests == "")
-            {
+            if ($interests == "") {
                 $interests = "None";
             }
 
@@ -67,9 +62,7 @@ class DataLayer
             $statement->bindParam(":bio", $member->getBio(), PDO::PARAM_STR);
             $statement->bindParam(":interests", $interests, PDO::PARAM_STR);
             $statement->bindParam(":isMember", $isMember, PDO::PARAM_BOOL);
-        }
-        else
-        {
+        } else {
             $isMember = 0;
             $interests = "N/A";
 
