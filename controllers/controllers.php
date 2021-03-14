@@ -213,22 +213,21 @@ class Controller
         //unserialize session and reassign to an instance variable
         $member = unserialize($_SESSION['$member']);
 
-        $dataLayer->insertMember($member);
+            $dataLayer->insertMember($member);
+            $this->_f3->set('fName', $member->getFName());
+            $this->_f3->set('lName', $member->getLName());
+            $this->_f3->set('age' , $member->getAge());
+            $this->_f3->set('gender', $member->getGender());
+            $this->_f3->set('phone', $member->getPhone());
+            $this->_f3->set('email', $member->getEmail());
+            $this->_f3->set('state', $member->getState());
+            $this->_f3->set('seeking', $member->getSeeking());
+            $this->_f3->set('bio', $member->getBio());
 
-        $this->_f3->set('fName', $member->getFName());
-        $this->_f3->set('lName', $member->getLName());
-        $this->_f3->set('age' , $member->getAge());
-        $this->_f3->set('gender', $member->getGender());
-        $this->_f3->set('phone', $member->getPhone());
-        $this->_f3->set('email', $member->getEmail());
-        $this->_f3->set('state', $member->getState());
-        $this->_f3->set('seeking', $member->getSeeking());
-        $this->_f3->set('bio', $member->getBio());
-
-        if ($member->isMember()){
-            $this->_f3->set('inDoorInterests', array($member->getInDoorInterests()));
-            $this->_f3->set('outDoorInterests', array($member->getOutDoorInterests()));
-        }
+            if ($member->isMember()){
+                $this->_f3->set('inDoorInterests', array($member->getInDoorInterests()));
+                $this->_f3->set('outDoorInterests', array($member->getOutDoorInterests()));
+            }
 
         $view = new Template();
         echo $view->render('views/summary.html');
@@ -238,12 +237,39 @@ class Controller
     function admin()
     {
         global $dataLayer;
-
         $members = $dataLayer->getMembers();
-
         $this->_f3->set('members', $members);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_SESSION['memberNum'] = $dataLayer->getMember($_POST['memberNum']);
+
+            $this->_f3->reroute('/viewProfile');
+        }
 
         $view = new Template();
         echo $view->render('views/admin.html');
+    }
+
+    /** Display view profile page */
+    function viewProfile()
+    {
+        $member = $_SESSION['memberNum'];
+
+        $this->_f3->set('fName', $member['fName']);
+        $this->_f3->set('lName', $member['lName']);
+        $this->_f3->set('age' , $member['age']);
+        $this->_f3->set('gender', $member['gender']);
+        $this->_f3->set('phone', $member['phone']);
+        $this->_f3->set('email', $member['email']);
+        $this->_f3->set('state', $member['state']);
+        $this->_f3->set('seeking', $member['seeking']);
+        $this->_f3->set('bio', $member['bio']);
+
+        if ($member['isMember'] == 1){
+            $this->_f3->set('interests', $member['interests']);
+        }
+
+        $view = new Template();
+        echo $view->render('views/view-profile.html');
     }
 }

@@ -1,14 +1,28 @@
 <?php
 
+/**
+ * Class DataLayer
+ */
 class DataLayer
 {
+    /**
+     * @var
+     */
     private $_dbh;
 
+    /**
+     * DataLayer constructor.
+     * @param $dbh
+     */
     function __construct($dbh)
     {
         $this->_dbh = $dbh;
     }
 
+    /**
+     * Inserts new members into member database.
+     * @param $member
+     */
     function insertMember($member)
     {
         $sql = "INSERT INTO member(fName, lName, age, gender, phone, email, state, seeking, bio, interests, isMember)
@@ -77,6 +91,10 @@ class DataLayer
         $statement->execute();
     }
 
+    /**
+     * Retrieves all rows from database.
+     * @return mixed
+     */
     function getMembers()
     {
         $sql = "SELECT * FROM member ORDER BY userNum ASC";
@@ -90,6 +108,11 @@ class DataLayer
         return $result;
     }
 
+    /**
+     * Retrieves specified row based off member ID from database.
+     * @param $member_id
+     * @return mixed
+     */
     function getMember($member_id)
     {
         $sql = "SELECT * FROM member WHERE userNum = $member_id";
@@ -103,6 +126,11 @@ class DataLayer
         return $result;
     }
 
+    /**
+     * Retrieves specified member's interest(s) by referencing member ID from database.
+     * @param $member_id
+     * @return mixed
+     */
     function getInterests($member_id)
     {
         $sql = "SELECT interests FROM member WHERE userNum = $member_id";
@@ -116,12 +144,20 @@ class DataLayer
         return $result;
     }
 
+    /**
+     * Valid indoor activities
+     * @return string[]
+     */
     function getIndoor()
     {
         return array("tv", "puzzles", "movies", "reading", "cooking",
             "playing cards", "board games", "video games");
     }
 
+    /**
+     * Valid outdoor activities
+     * @return string[]
+     */
     function getOutdoor()
     {
         return array("hiking", "biking", "swimming", "collecting",

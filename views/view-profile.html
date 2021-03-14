@@ -10,6 +10,7 @@
             <br>
 
             <!--Summary-->
+            <h1 class="text-center">Viewing {{ @fName }} {{ @lName }}'s profile.</h1>
             <div class="row">
                 <div class="col">
                     <div class="card" style="width: 18rem;">
@@ -21,16 +22,10 @@
                             <li class="list-group-item">Email: {{ @email }}</li>
                             <li class="list-group-item">State: {{ @state }}</li>
                             <li class="list-group-item">Seeking: {{ @seeking }}</li>
-                            <check if="{{ isset(@inDoorInterests) || isset(@outDoorInterests)}}">
+                            <check if="{{ isset(@interests) }}">
                                 <li class="list-group-item">
                                     <p>Interests: </p>
-                                    <repeat group="{{ @inDoorInterests }}" value="{{ @inDoorInterest }}">
-                                        <p>{{ @inDoorInterest }}</p>
-                                    </repeat>
-
-                                    <repeat group="{{ @outDoorInterests }}" value="{{ @outDoorInterest }}">
-                                        <p>{{ @outDoorInterest }}</p>
-                                    </repeat>
+                                    <p>{{ @interests }}</p>
                                 </li>
                             </check>
                         </ul>

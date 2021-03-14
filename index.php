@@ -56,5 +56,11 @@ $f3->route('GET|POST /admin', function() {
     $controller->admin();
 });
 
+//View profile Page
+$f3->route('GET /viewProfile', function() {
+    global $controller;
+    $controller->viewProfile();
+});
+
 //Run fat free
 $f3->run();
