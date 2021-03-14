@@ -77,20 +77,44 @@ class DataLayer
         $statement->execute();
     }
 
-//    function getMembers()
-//    {
-//
-//    }
-//
-//    function getMember(member_id)
-//    {
-//
-//    }
-//
-//    function getInterests(member_id)
-//    {
-//
-//    }
+    function getMembers()
+    {
+        $sql = "SELECT * FROM member ORDER BY userNum ASC";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    function getMember($member_id)
+    {
+        $sql = "SELECT * FROM member WHERE userNum = $member_id";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute();
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    function getInterests($member_id)
+    {
+        $sql = "SELECT interests FROM member WHERE userNum = $member_id";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute();
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
 
     function getIndoor()
     {

@@ -44,10 +44,16 @@ $f3->route('GET|POST /interests', function() {
     $controller->interests();
 });
 
-////Summary Page
+//Summary Page
 $f3->route('GET|POST /summary', function() {
     global $controller;
     $controller->summary();
+});
+
+//Summary Page
+$f3->route('GET|POST /admin', function() {
+    global $controller;
+    $controller->admin();
 });
 
 //Run fat free

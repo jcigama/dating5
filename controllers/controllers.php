@@ -208,8 +208,6 @@ class Controller
     /** Display summary page */
     function summary()
     {
-
-
         global $dataLayer;
 
         //unserialize session and reassign to an instance variable
@@ -234,5 +232,17 @@ class Controller
 
         $view = new Template();
         echo $view->render('views/summary.html');
+    }
+
+    function admin()
+    {
+        global $dataLayer;
+
+        $members = $dataLayer->getMembers();
+
+        $this->_f3->set('members', $members);
+
+        $view = new Template();
+        echo $view->render('views/admin.html');
     }
 }
